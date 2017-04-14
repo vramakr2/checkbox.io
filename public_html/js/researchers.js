@@ -53,7 +53,8 @@ function SetupEvents()
 
 		$("#survey").hide();
 		$("#data-upload").show();
-		$("#abcompare").hide();	
+		$("#abcompare").hide();
+        $("#codeannotation").hide();
 	});
 
 	$("#survey-btn").click( function ()
@@ -64,7 +65,8 @@ function SetupEvents()
 
 		$("#data-upload").hide();
 		$("#survey").show();
-		$("#abcompare").hide();	
+		$("#abcompare").hide();
+        $("#codeannotation").hide();
 
 	});
 
@@ -77,6 +79,19 @@ function SetupEvents()
         $("#data-upload").hide();
         $("#survey").hide();
         $("#abcompare").show();
+        $("#codeannotation").hide();
+    });
+
+    $("#codeannotation-btn").click( function ()
+    {
+        $("#study-icon").attr("class","icon-check-empty");
+        $("#study-name").text("Code Annotation");
+        $("#study-byline").text("Create a code annotation study ");
+
+        $("#data-upload").hide();
+        $("#survey").hide();
+        $("#abcompare").hide();
+        $("#codeannotation").show();
     });
 
 	// Create button handlers.
@@ -102,6 +117,25 @@ function SetupEvents()
         	console.log(data)
             bootstrap_alert.warning( data );
 		});
+    });
+
+    $("#createCodeAnnotationBtn").click( function()
+    {
+        console.log( "call code annotation")
+        var req = $.get('/api/newFeature/bad');
+
+        req.done(function (data)
+        {
+            console.log(data)
+            bootstrap_alert.warning( data );
+        }).fail(function(data) {
+            console.log(data.responseText);
+            if(data.status == 500){
+                bootstrap_alert.warning( data.responseText );
+			}
+
+        });
+
     });
 	
 }
@@ -148,6 +182,9 @@ function saveStudy( model )
 bootstrap_alert = function() {};
 bootstrap_alert.warning = function(message) {
 	$('#alert_placeholder').html('<div class="alert"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>');
+};
+bootstrap_alert.error = function(message) {
+    $('#alert_placeholder').html('<div class="alert-error"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>');
 };
 
 

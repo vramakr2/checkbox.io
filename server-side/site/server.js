@@ -88,5 +88,8 @@ app.post('/api/study/admin/notify/', admin.notifyParticipant);
 // New feature 1
 app.get('/api/newFeature/good', newFeature.good);
 
+// New feature 2
+app.get('/api/newFeature/bad', newFeature.bad);
+
 app.listen(3002);
 console.log('Listening on port 3002...');
