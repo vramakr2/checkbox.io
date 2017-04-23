@@ -4,19 +4,19 @@
 function surrogateCtor() {}
 
 function extend(base, sub) {
-  // Copy the prototype from the base to setup inheritance
-  surrogateCtor.prototype = base.prototype;
-  // Tricky huh?
-  sub.prototype = new surrogateCtor();
-  // Remember the constructor property was set wrong, let's fix it
-  sub.prototype.constructor = sub;
+    // Copy the prototype from the base to setup inheritance
+    surrogateCtor.prototype = base.prototype;
+    // Tricky huh?
+    sub.prototype = new surrogateCtor();
+    // Remember the constructor property was set wrong, let's fix it
+    sub.prototype.constructor = sub;
 }
 
 StudyBase = function(incoming)
 {
-	var self = this;
+    var self = this;
 
-	self.name = incoming.name;
+    self.name = incoming.name;
     self.description = incoming.description;
     self.studyKind = incoming.studyKind;
 
@@ -27,42 +27,42 @@ StudyBase = function(incoming)
 
     self.awardOptions = ['Amazon Gift Card', 'Github Swag', 'BrowserStack', 'Windows Surface RT', 'iPad Mini', 'Other', 'None'];
 
-	self.status = "open";
-	self.goal = incoming.goal || 100;
+    self.status = "open";
+    self.goal = incoming.goal || 100;
 
-	self.invitecode = incoming.invitecode;
+    self.invitecode = incoming.invitecode;
 };
 
 SurveyModel = function( incoming, token )
 {
-	var self = this;
-	StudyBase.call(this, incoming);
+    var self = this;
+    StudyBase.call(this, incoming);
 
-	self.markdown = incoming.markdown;
-	self.token = token;
+    self.markdown = incoming.markdown;
+    self.token = token;
 
-	self.adminLink = "http://" + process.env.ip_address + "/studies/admin/?token=" + token;
+    self.adminLink = "http://" + process.env.ip_address + "/studies/admin/?token=" + token;
 
-	self.setPublicLink = function(id)
-	{
-		self.publicLink = "http://" + process.env.ip_address + "/studies/?id=" + id;
-	};
+    self.setPublicLink = function(id)
+    {
+        self.publicLink = "http://" + process.env.ip_address + "/studies/?id=" + id;
+    };
 
 
-	self.getMessage = function()
-	{
-		return {
-	        text: "Your survey has been created.\n" +
-              "Survey admin url:\n" + 
-              self.adminLink + "\n" +
-              "Public survey url: \n" + 
-              self.publicLink + "\n"
+    self.getMessage = function()
+    {
+        return {
+            text: "Your survey has been created.\n" +
+            "Survey admin url:\n" +
+            self.adminLink + "\n" +
+            "Public survey url: \n" +
+            self.publicLink + "\n"
             ,
             from:    "Chris Parnin <support@checkbox.io>",
             to:      self.researcherName + "<"+ self.contact +">",
             subject: "checkbox.io: survey created"
         };
-	};
+    };
 }
 
 extend(StudyBase, SurveyModel);
@@ -72,34 +72,34 @@ exports.SurveyModel = SurveyModel;
 
 DataStudyModel = function( incoming, token )
 {
-	var self = this;
-	StudyBase.call(this, incoming);
+    var self = this;
+    StudyBase.call(this, incoming);
 
-	self.markdown = incoming.markdown;
-	self.token = token;
+    self.markdown = incoming.markdown;
+    self.token = token;
 
-	self.adminLink = "http://checkbox.io/studies/admin/?token=" + token;
+    self.adminLink = "http://" + process.env.ip_address + "/studies/admin/?token=" + token;
 
-	self.setPublicLink = function(id)
-	{
-		self.publicLink = "http://checkbox.io/studies/?id=" + id;
-	};
+    self.setPublicLink = function(id)
+    {
+        self.publicLink = "http://" + process.env.ip_address + "/studies/?id=" + id;
+    };
 
 
-	self.getMessage = function()
-	{
-		return {
-	        text: "Your data study has been created.\n" +
-              "Study admin url:\n" + 
-              self.adminLink + "\n" +
-              "Public data study url: \n" + 
-              self.publicLink + "\n"
+    self.getMessage = function()
+    {
+        return {
+            text: "Your data study has been created.\n" +
+            "Study admin url:\n" +
+            self.adminLink + "\n" +
+            "Public data study url: \n" +
+            self.publicLink + "\n"
             ,
             from:    "Chris Parnin <support@checkbox.io>",
             to:      self.researcherName + "<"+ self.contact +">",
             subject: "checkbox.io: data study created"
         };
-	};
+    };
 }
 
 extend(StudyBase, DataStudyModel);
