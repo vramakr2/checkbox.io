@@ -12,6 +12,7 @@
     "json5": "~0.5.1",
     "marked": "~0.3.6",
     "mongodb": "~2.2.22",
+    "newrelic": "^1.38.2",
     "redis": "^2.7.1",
     "underscore": "~1.8.3",
     "validator": "~6.2.1"
