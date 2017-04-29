@@ -57,12 +57,12 @@ exports.createStudy = function(req, res) {
                     // update with new public link, and notify via email, redirect user to admin page.
                     collection.update( {'_id' : study._id}, {'$set' : {'publicLink' : study.publicLink}},
                         function(err, result )
-                    {
-                        sendStudyEmail( study );
-                        res.send({admin_url: study.adminLink});
-                    });
-        		}
-        	});
+                        {
+                            //sendStudyEmail( study );
+                            res.send({admin_url: study.adminLink});
+                        });
+                }
+            });
 
         });
     });
